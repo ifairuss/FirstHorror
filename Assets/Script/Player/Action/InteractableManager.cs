@@ -38,20 +38,26 @@ public class InteractableManager : MonoBehaviour
 
     private void HandleInteractionCheck()
     {
-        if(Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
+        if (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
         {
+
             if (hit.collider.gameObject.layer == 6 && (_currentInteraction == null || hit.collider.gameObject.GetInstanceID() != _currentInteraction.GetInstanceID()))
             {
                 hit.collider.TryGetComponent(out _currentInteraction);
 
-                if(_currentInteraction)
+                if (_currentInteraction)
                 {
                     _currentInteraction.OnFocus();
                 }
-            }   
+            }
+            else if (hit.collider.gameObject.layer != 6 && (_currentInteraction != null))
+            {
+                _currentInteraction.OnLoseFocus();
+                _currentInteraction = null;
+            }
         }
         else if (_currentInteraction)
-        {
+        { 
             _currentInteraction.OnLoseFocus();
             _currentInteraction = null;
         }

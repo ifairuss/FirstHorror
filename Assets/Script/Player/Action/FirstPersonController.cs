@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool _canJump = true;
     [SerializeField] private bool _canCrouch = true;
     [SerializeField] private bool _canUseHeadbob = true;
-    [SerializeField] private bool _willSlideOnSlopes= true;
+    [SerializeField] private bool _willSlideOnSlopes = true;
     [SerializeField] private bool _canZoom = true;
     [SerializeField] private bool _canStamina;
 
@@ -25,6 +26,11 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private KeyCode _jumptKey;
     [SerializeField] private KeyCode _zoomKey;
     [SerializeField] private KeyCode _crouchKey;
+    [SerializeField] private KeyCode _openInventory;
+
+    [Header("Inventory Parameters")]
+    [SerializeField] private bool _isOpen;
+    [SerializeField] private GameObject _inventory;
 
     [Header("Movement Parameters")]
     [SerializeField] private float _walkSpeed;
@@ -39,6 +45,10 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float _staminaValueIncrement;
     [SerializeField] private float _staminaTimeIncrement;
     [SerializeField] private Slider _staminaSlider;
+    [SerializeField] private Image _staminaImage;
+    [SerializeField] private Color _staminaColorBlue;
+    [SerializeField] private Color _staminaColorYellow;
+    [SerializeField] private Color _staminaColorRed;
 
     private float _currentStamina;
     private Coroutine _regeneratingStamina;
@@ -126,6 +136,8 @@ public class FirstPersonController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _inventory.SetActive(false);
     }
 
     private void Update()
@@ -165,6 +177,28 @@ public class FirstPersonController : MonoBehaviour
             HandleMovementInput();
             HandleMouseLook();
             ApplyFinalMovements();
+        }
+        OpenCloseInventory();
+    }
+
+    private void OpenCloseInventory()
+    {
+        if(Input.GetKeyDown(_openInventory))
+        {
+            if(!_isOpen)
+            {
+                _inventory.SetActive(true);
+                _isOpen = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                _inventory.SetActive(false);
+                _isOpen = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 
@@ -216,7 +250,25 @@ public class FirstPersonController : MonoBehaviour
             _staminaSlider.gameObject.SetActive(false);
         }
 
+        SwipeColor();
+
         _staminaSlider.value = _currentStamina;
+    }
+
+    private void SwipeColor()
+    {
+        if (_currentStamina <= 66 && _currentStamina > 33)
+        {
+            _staminaImage.color = _staminaColorYellow;
+        }
+        else if (_currentStamina <= 33)
+        {
+            _staminaImage.color = _staminaColorRed;
+        }
+        else if (_currentStamina > 66)
+        {
+            _staminaImage.color = _staminaColorBlue;
+        }
     }
 
     private void HandleJump()
