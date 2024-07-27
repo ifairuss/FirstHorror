@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a852708e818f1b749af6f36e985184c4, type: 3}
+  m_Name: FirstFlashlite
+  m_EditorClassIdentifier: 
+  ItemID: 11
+  Description: asfdg2345432111111111111111111111111111111111111111111111111111111111111111111111111111111
+  DropItemPrefab: {fileID: 5897982695594444893, guid: 9399777f18edd834593ab8aef5340c29, type: 3}
+  ItemImageInventory: {fileID: 21300000, guid: b7376395fb33c59458224abafbd8e921, type: 3}
+  Item: 4
+  _maxEnergy: 100

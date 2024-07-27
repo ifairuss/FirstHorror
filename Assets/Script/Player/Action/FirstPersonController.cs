@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,11 +43,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float _timeBeforeStaminaRegenStarts;
     [SerializeField] private float _staminaValueIncrement;
     [SerializeField] private float _staminaTimeIncrement;
-    [SerializeField] private Slider _staminaSlider;
-    [SerializeField] private Image _staminaImage;
-    [SerializeField] private Color _staminaColorBlue;
-    [SerializeField] private Color _staminaColorYellow;
-    [SerializeField] private Color _staminaColorRed;
 
     private float _currentStamina;
     private Coroutine _regeneratingStamina;
@@ -130,13 +124,15 @@ public class FirstPersonController : MonoBehaviour
         _defaulthFOV = _playerCamera.fieldOfView;
 
         _currentStamina = _maxStamina;
-        _staminaSlider.maxValue = _maxStamina;
-        _staminaSlider.value = _currentStamina;
-        _staminaSlider.gameObject.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        _inventory.SetActive(true);
+    }
+
+    private void Start()
+    {
         _inventory.SetActive(false);
     }
 
@@ -189,6 +185,7 @@ public class FirstPersonController : MonoBehaviour
             {
                 _inventory.SetActive(true);
                 _isOpen = true;
+                CanMov = false;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
@@ -196,6 +193,7 @@ public class FirstPersonController : MonoBehaviour
             {
                 _inventory.SetActive(false);
                 _isOpen = false;
+                CanMov = true;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
@@ -224,17 +222,12 @@ public class FirstPersonController : MonoBehaviour
             }
 
             _currentStamina -= _staminaUseMultiplier * Time.deltaTime;
-            _staminaSlider.gameObject.SetActive(true);
-
-            if (_currentStamina < 0)
-            {
-                _currentStamina = 0;
-            }
 
             OnStaminaChange?.Invoke(_currentStamina);
 
             if (_currentStamina <= 0)
             {
+                _currentStamina = 0;
                 _canSprint = false;
                 _canJump = false;
             }
@@ -247,27 +240,27 @@ public class FirstPersonController : MonoBehaviour
 
         if (_currentStamina >= 100)
         {
-            _staminaSlider.gameObject.SetActive(false);
+
         }
 
-        SwipeColor();
-
-        _staminaSlider.value = _currentStamina;
+        SwipeEffectStamina();
     }
 
-    private void SwipeColor()
+    private void SwipeEffectStamina()
     {
-        if (_currentStamina <= 66 && _currentStamina > 33)
+        if (_currentStamina > 60 && _currentStamina < 99)
         {
-            _staminaImage.color = _staminaColorYellow;
+            print("Диха повільно");
         }
-        else if (_currentStamina <= 33)
+        else if (_currentStamina <= 60 && _currentStamina > 20)
         {
-            _staminaImage.color = _staminaColorRed;
+            print("Диха прискоренно");
+
         }
-        else if (_currentStamina > 66)
+        else if (_currentStamina <= 20)
         {
-            _staminaImage.color = _staminaColorBlue;
+            print("Диха швидко");
+
         }
     }
 
@@ -279,7 +272,6 @@ public class FirstPersonController : MonoBehaviour
             {
                 _moveDirection.y = _jumpForce;
                 _currentStamina -= 20;
-                _staminaSlider.gameObject.SetActive(true);
 
 
                 if (_regeneratingStamina != null)
@@ -416,9 +408,15 @@ public class FirstPersonController : MonoBehaviour
         yield return new WaitForSeconds(_timeBeforeStaminaRegenStarts);
         WaitForSeconds timeToWait = new WaitForSeconds(_staminaTimeIncrement);
 
+
         while(_currentStamina < _maxStamina)
         {
-            if(_currentStamina > 0)
+            if (_currentStamina >= 99)
+            {
+                print("Вздох");
+            }
+
+            if (_currentStamina > 0)
             {
                 _canSprint = true;
 
