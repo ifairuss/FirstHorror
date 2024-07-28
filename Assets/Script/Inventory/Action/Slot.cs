@@ -7,7 +7,7 @@ public class Slot : MonoBehaviour
     public bool IsEmpty = true;
     public bool IsFastSlot = false;
 
-    [Header("Functional Slot")]
+    [Header("Setting Slot")]
     public string SlotName = "DefaulthSlot";
 
     [Header("Slot Properties")]

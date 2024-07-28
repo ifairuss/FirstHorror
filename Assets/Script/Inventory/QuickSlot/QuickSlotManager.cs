@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuickSlotManager : MonoBehaviour
@@ -18,6 +19,12 @@ public class QuickSlotManager : MonoBehaviour
     [SerializeField] private Transform _quickSlotBox;
     [SerializeField] private List<Slot> _quickSlot = new List<Slot>();
 
+    [Header("Slot selected")]
+    [SerializeField] private bool _flashliteSlotSelected;
+    [SerializeField] private bool _instrumentSlotSelected;
+
+    [Header("Games component")]
+    [SerializeField] private HealthManager _healthManager;
 
     private void Awake()
     {
@@ -37,24 +44,84 @@ public class QuickSlotManager : MonoBehaviour
 
     private void ButtonQuickSlotManager()
     {
-        if(UseMedical)
+        foreach(Slot slot in _quickSlot)
         {
-            print("hhhhhhhhhhhh");
-
+            MedicalQuickSlot(slot);
+            BaterryQuickSlot(slot);
+            FlashliteQuickSlot(slot);
+            InstrumentQuickSlot(slot);
         }
-        if (UseBaterry)
-        {
-            print("rrrrrrrrrrrrrr");
+    }
 
-        }
-        if (ChooseFlashlite)
+    private void MedicalQuickSlot(Slot slot)
+    {
+        if (slot.SlotName == "Medical" && slot.IsEmpty != true)
         {
-            print("111111111111111111");
-        }
-        if(ChooseInstrument)
-        {
-            print("2222222222222222222");
+            if (UseMedical)
+            {
+                AidKitSO medicalParameters = slot.ItemInSlot as AidKitSO;
 
+                if (medicalParameters != null && _healthManager.GetHealth < 100)
+                {
+                    _healthManager.AddHealthAfterTimers(medicalParameters._timeOfUse, medicalParameters._addHealth, slot);
+                }
+            }
+        }
+    }
+
+    private void BaterryQuickSlot(Slot slot)
+    {
+        if (slot.SlotName == "Baterry" && slot.IsEmpty != true)
+        {
+            if (UseBaterry)
+            {
+                print("rrrrrrrrrrrrrr");
+            }
+        }
+    }
+
+    private void FlashliteQuickSlot(Slot slot)
+    {
+        if (slot.SlotName == "Flashlite" && slot.IsEmpty != true)
+        {
+            if (ChooseFlashlite && !_flashliteSlotSelected)
+            {
+                print("Flashlite selected");
+                _flashliteSlotSelected = true;
+
+            }
+            else if (ChooseFlashlite && _flashliteSlotSelected)
+            {
+                print("Flashlite UnSelected");
+                _flashliteSlotSelected = false;
+            }
+        }
+        else if (slot.SlotName == "Flashlite" && slot.IsEmpty == true && _flashliteSlotSelected != false)
+        {
+            print("Flashlite UnSelected");
+            _flashliteSlotSelected = false;
+        }
+    }
+
+    private void InstrumentQuickSlot(Slot slot)
+    {
+        if (slot.SlotName == "Instrument" && slot.IsEmpty != true)
+        {
+            if (ChooseInstrument && !_instrumentSlotSelected)
+            {
+                print("Instruent selected");
+                _instrumentSlotSelected = true;
+            }
+            else if (ChooseInstrument && _instrumentSlotSelected)
+            {
+                print("Instrument UnSelected");
+                _instrumentSlotSelected = false;
+            }
+        }
+        else if (slot.SlotName == "Instrument" && slot.IsEmpty == true && _instrumentSlotSelected != false)
+        {
+            print("Instrument UnSelected");
+            _instrumentSlotSelected = false;
         }
     }
 }

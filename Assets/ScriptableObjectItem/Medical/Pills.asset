@@ -18,4 +18,4 @@ MonoBehaviour:
   ItemImageInventory: {fileID: 1057092998, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
   Item: 3
   _addHealth: 50
-  _timeOfUse: 5
+  _timeOfUse: 10

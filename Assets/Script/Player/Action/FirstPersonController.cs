@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FirstPersonController : MonoBehaviour
 {
     public bool CanMov { get; private set; } = true;
+    public bool CanMovUseItem { get; set; } = true;
 
     private bool IsSprinting => _canSprint && Input.GetKey(_sprintKey);
     private bool ShouldJump => Input.GetKeyDown(_jumptKey) && _characterController.isGrounded;
@@ -145,9 +145,24 @@ public class FirstPersonController : MonoBehaviour
     {
         if(CanMov)
         {
-            if(_canJump)
+            if(CanMovUseItem)
             {
-                HandleJump();
+                if (_canJump)
+                {
+                    HandleJump();
+                }
+
+                _canStamina = true;
+
+                if(_currentStamina > 0)
+                {
+                    _canSprint = true;
+                }
+            }
+            else
+            {
+                _canStamina = false;
+                _canSprint = false;
             }
             
             if(_canCrouch)
@@ -170,9 +185,9 @@ public class FirstPersonController : MonoBehaviour
                 HandleStamina();
             }
 
-            HandleMovementInput();
-            HandleMouseLook();
             ApplyFinalMovements();
+            HandleMouseLook();
+            HandleMovementInput();
         }
         OpenCloseInventory();
     }
@@ -236,11 +251,6 @@ public class FirstPersonController : MonoBehaviour
         if (!IsSprinting && _currentStamina < _maxStamina && _regeneratingStamina == null)
         {
             _regeneratingStamina = StartCoroutine(RegenerateStamina());
-        }
-
-        if (_currentStamina >= 100)
-        {
-
         }
 
         SwipeEffectStamina();
@@ -411,7 +421,7 @@ public class FirstPersonController : MonoBehaviour
 
         while(_currentStamina < _maxStamina)
         {
-            if (_currentStamina >= 99)
+            if (_currentStamina >= 98)
             {
                 print("Вздох");
             }
