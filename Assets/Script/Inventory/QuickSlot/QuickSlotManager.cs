@@ -59,7 +59,7 @@ public class QuickSlotManager : MonoBehaviour
         {
             if (UseMedical)
             {
-                AidKitSO medicalParameters = slot.ItemInSlot as AidKitSO;
+                MedicamentsSO medicalParameters = slot.ItemInSlot as MedicamentsSO;
 
                 if (medicalParameters != null && _healthManager.GetHealth < 100)
                 {

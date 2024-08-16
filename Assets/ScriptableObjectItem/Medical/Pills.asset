@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pills
   m_EditorClassIdentifier: 
   ItemID: 33
-  Description: Pills 8888888888888888888888888888888888888888888888888888888888888888888888888
+  ItemDescription: Medical pills
   DropItemPrefab: {fileID: 4003453260881577888, guid: 0fe8f23bdcc67784084d4cdaceb3e7ef, type: 3}
   ItemImageInventory: {fileID: 1057092998, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
   Item: 3

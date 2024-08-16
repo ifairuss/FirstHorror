@@ -20,8 +20,15 @@ public class PickUpItem : Interactable
         if(_itemInGame != null)
         {
             _inventoryManager.AddItemInInventory(_itemInGame);
-
-            Destroy(gameObject);
+            if(_inventoryManager.InventoryFull)
+            {
+                gameObject.transform.position += new Vector3(0,0.2f,0);
+                return;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

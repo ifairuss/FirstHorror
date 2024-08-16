@@ -5,9 +5,12 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory Properties")]
     [SerializeField] private Transform _inventory;
+    [SerializeField] private Transform _playerPosition;
 
     [Header("Inventory Slot")]
     [SerializeField] private List<Slot> _inventorySlot = new List<Slot>();
+
+    public bool InventoryFull;
 
     private void Awake()
     {
@@ -24,13 +27,27 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (Slot slot in _inventorySlot)
         {
-            if (slot.IsEmpty == true)
+            InventoryFull = true;
+            foreach (Slot checkSlot in _inventorySlot)
             {
-                slot.ItemInSlot = ItemInGame;
-                slot.SwitchImage(ItemInGame.ItemImageInventory);
-                slot.IsEmpty = false;
-                break;
+                if(checkSlot.IsEmpty)
+                {
+                    InventoryFull = false;
+                    break;
+                }
             }
+
+            if(InventoryFull == false)
+            {
+                if (slot.IsEmpty == true)
+                {
+                    slot.ItemInSlot = ItemInGame;
+                    slot.SwitchImage(ItemInGame.ItemImageInventory);
+                    slot.IsEmpty = false;
+                    break;
+                }
+            }
+            
         }
     }
 }

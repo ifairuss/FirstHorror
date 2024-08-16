@@ -1,12 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
-public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Slot _oldSlot;
     private Transform _playerPosition;
     private Transform _dragLayer;
+    private TextMeshProUGUI _descriptionText;
+
+    private void Awake()
+    {
+        _descriptionText = GameObject.FindGameObjectWithTag("Description").GetComponent<TextMeshProUGUI>();
+    }
 
     private void Start()
     {
@@ -15,8 +22,35 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _oldSlot = transform.GetComponentInParent<Slot>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            if (_oldSlot.IsEmpty == false)
+            {
+                FixBugInInventory();
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        var Slot = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<Slot>();
+
+        if (!Slot.IsEmpty && Slot != null)
+        {
+            _descriptionText.text = Slot.ItemInSlot.ItemDescription;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _descriptionText.text = "There could be something here, but you have nothing.";
+    }
+
     public void OnPointerDown(PointerEventData eventData) 
     {
+
         if (_oldSlot.IsEmpty == true)
         {
             return;
@@ -35,24 +69,13 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(_oldSlot.IsEmpty == true)
+        if (_oldSlot.IsEmpty == true)
         {
             return;
         }
         else
         {
             transform.position = eventData.position;
-        }
-    }
-
-    private void Update()
-    {
-        if(Input.GetKey(KeyCode.Tab))
-        {
-            if(_oldSlot.IsEmpty == false)
-            {
-                FixBugInInventory();
-            }
         }
     }
 

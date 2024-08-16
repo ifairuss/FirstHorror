@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Undefined
   - DragLayer
-  - infoImage
+  - Description
   layers:
   - Default
   - TransparentFX

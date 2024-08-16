@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Baterry_35%
   m_EditorClassIdentifier: 
   ItemID: 22
-  Description: smallbaterry
+  ItemDescription: Baterry 35%
   DropItemPrefab: {fileID: 1232216396409384087, guid: 541d64547c92ec14a82430b5557aa5e2, type: 3}
   ItemImageInventory: {fileID: 177624659, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
   Item: 2

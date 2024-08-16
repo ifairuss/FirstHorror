@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstFlashlite
   m_EditorClassIdentifier: 
   ItemID: 11
-  Description: asfdg2345432111111111111111111111111111111111111111111111111111111111111111111111111111111
+  ItemDescription: Flashlite
   DropItemPrefab: {fileID: 5897982695594444893, guid: 9399777f18edd834593ab8aef5340c29, type: 3}
   ItemImageInventory: {fileID: 21300000, guid: b7376395fb33c59458224abafbd8e921, type: 3}
   Item: 4

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Key_4
   m_EditorClassIdentifier: 
   ItemID: 104
-  Description: Key_4
+  ItemDescription: Key - 4
   DropItemPrefab: {fileID: 8184071803873096513, guid: b7cc65f4931676c448a73dd7fa3c57fa, type: 3}
   ItemImageInventory: {fileID: 1469353512, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
-  Item: 0
+  Item: 5

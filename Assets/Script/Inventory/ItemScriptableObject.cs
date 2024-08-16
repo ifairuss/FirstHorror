@@ -14,7 +14,7 @@ public class ItemScriptableObject : ScriptableObject
 {
     [Header("Item Properties")]
     public int ItemID;
-    [TextArea (15,20)] public string Description;
+    [TextArea (15,20)] public string ItemDescription;
     [Header("Item GameObject")]
     public Transform DropItemPrefab;
     public Sprite ItemImageInventory;

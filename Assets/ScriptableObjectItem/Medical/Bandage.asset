@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Bandage
   m_EditorClassIdentifier: 
   ItemID: 31
-  Description: 'Bandageeee
-
-'
+  ItemDescription: Medical Bandage
   DropItemPrefab: {fileID: 3575189743638321502, guid: 34435423d8bd30f4ab4f76a9babc2269, type: 3}
   ItemImageInventory: {fileID: 134251881, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
   Item: 3

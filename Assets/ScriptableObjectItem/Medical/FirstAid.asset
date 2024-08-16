@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstAid
   m_EditorClassIdentifier: 
   ItemID: 32
-  Description: FirstAid55555555555555555555555555555555555555555555555555555555
+  ItemDescription: Medical first aidkit
   DropItemPrefab: {fileID: 285183688602368864, guid: 86e9abf3c051f4d48bd73e92325a54d2, type: 3}
   ItemImageInventory: {fileID: 19172146, guid: ff87f156b020cfa42a2c266f23340562, type: 3}
   Item: 3
